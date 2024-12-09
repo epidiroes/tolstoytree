@@ -1,4 +1,4 @@
-# FPROG Project in Haskell
+# Tolsoytree - FPROG project in Haskell
 
 ## Testing
 
@@ -13,8 +13,9 @@ To execute the program run
 ```bash
 cabal build
 ```
-Followed by
+
+followed by
 
 ```bash
-cabal run my-project-exe
+cabal run tolstoytree-exe
 ```
