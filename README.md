@@ -1,4 +1,4 @@
-# Tolsoytree - FPROG project in Haskell
+# TolstoyTree - FPROG project in Haskell
 
 ## Testing
 
