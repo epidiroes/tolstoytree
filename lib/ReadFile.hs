@@ -1,6 +1,6 @@
-module ReadFile (readFileContent) where
+module ReadFile (readContent) where
 
-readFileContent :: FilePath -> IO String
-readFileContent path = do
+readContent :: FilePath -> IO String
+readContent path = do
     content <- readFile path
     return content

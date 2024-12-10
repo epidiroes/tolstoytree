@@ -1,15 +1,27 @@
 module Main where
 
+import ReadFile
+import TokenizeText
 import Tree
+
 
 main :: IO ()
 main = do
-    -- Ein Beispiel für das Erstellen eines Baums aus einer Liste von Strings
-    let inputList = ["apple", "orange", "banana", "grape", "pear"]
-    let tree = createTree inputList
+    let path = "war_and_peace.txt"
 
-    -- Den Baum in Inorder-Traversierung ausgeben (d.h. sortierte Ausgabe)
-    putStrLn "Inorder Traversal of the Tree:"
-    print (traverseTree tree)
+    -- Read the text file
+    text <- readContent path
 
+    -- TODO: cut out everything that is not the actual text
 
+    -- Tokenize the text file
+    let tokenized = tokenize text
+
+    -- Insert each unique word into the red-black tree
+    let tree = createTree tokenized
+
+    -- Traverse tree to get the sorted list of words
+    let list = traverseTree tree
+
+    -- TODO: Write the sorted list to "output.txt"
+    
