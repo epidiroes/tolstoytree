@@ -54,7 +54,7 @@ common warnings
     ghc-options: -Wall
 
 library tolstoytree-lib
-    exposed-modules: Tree, ReadFile, TokenizeText
+    exposed-modules: Tree, ReadFile, TokenizeText, WriteFile
     hs-source-dirs: lib
     build-depends: base ^>=4.17.2.1, split >=0.2.3
     default-language: Haskell2010
@@ -79,7 +79,7 @@ test-suite tolstoytree-test
     default-language: Haskell2010
 
     -- Modules included in this executable, other than Main.
-    other-modules: TestTree, TestReadFile, TestTokenizeText
+    other-modules: TestTree, TestReadFile, TestTokenizeText, TestWriteFile
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:

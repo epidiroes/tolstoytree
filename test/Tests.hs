@@ -4,6 +4,7 @@ import Test.HUnit
 import qualified TestTree
 import qualified TestReadFile
 import qualified TestTokenizeText
+import qualified TestWriteFile
 import qualified System.Exit as Exit
 
 
@@ -12,7 +13,8 @@ tests = TestList [TestTree.testInsert,
                 TestTree.testCreateTree, 
                 TestTree.testTraverseTree, 
                 TestReadFile.readFileTest,
-                TestTokenizeText.tokenizeTextTest]
+                TestTokenizeText.tokenizeTextTest,
+                TestWriteFile.writeToFileTest]
 
 
 main :: IO ()
