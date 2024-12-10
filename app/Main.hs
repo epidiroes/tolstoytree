@@ -11,6 +11,8 @@ main = do
     let inputPath = "war_and_peace.txt"
     let outputPath = "output.txt"
 
+    -- TODO: Measure the performance speed
+
     -- Read the text file
     text <- readContent inputPath
 

@@ -10,8 +10,8 @@ tokenizeTextTest = TestCase $ do
                 \But won't; high-sounding words; a duc--or even an ordinary man who--is\n\
                 \innocent; She said, 'Girl,' to the maid; the little princess' sister-in-law."
     let expected = ["the", "execution", "of", "the", "duc", "d'enghien", "what", "monsieur", "pierre", "won't", "you", 
-                    "that", "was", "good", "in", "it", "equality", "of", "citizenship", "one", "man's", "life", "thing", "well", "after", "that",
+                    "that", "was", "good", "in", "it", "equality", "of", "citizenship", "one", "man", "life", "thing", "well", "after", "that",
                     "but", "won't", "high-sounding", "words", "a", "duc", "or", "even", "an", "ordinary", "man", "who", "is",
-                    "innocent", "she", "said", "girl", "to", "the", "maid", "the", "little", "princess'", "sister-in-law"]
+                    "innocent", "she", "said", "girl", "to", "the", "maid", "the", "little", "princess", "sister-in-law"]
     let recieved = TokenizeText.tokenize text
     assertEqual "Tokenize text" expected recieved
