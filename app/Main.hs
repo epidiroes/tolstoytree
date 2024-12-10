@@ -11,12 +11,12 @@ main = do
     let inputPath = "war_and_peace.txt"
     let outputPath = "output.txt"
 
-    -- TODO: Measure the performance speed
+    -- TODO: Measure the performance speed before and after parallization
 
     -- Read the text file
     text <- readContent inputPath
 
-    -- TODO: cut out everything that is not the actual text
+    -- TODO: cut away everything that is not the actual text
     -- before: *** START OF THE PROJECT GUTENBERG EBOOK, WAR AND PEACE ***
     -- and after: *** END OF THE PROJECT GUTENBERG EBOOK, WAR AND PEACE ***
 

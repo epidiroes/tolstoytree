@@ -16,6 +16,7 @@ removeOuterApostrophes str
     | "'" `isSuffixOf` str = init str
     | otherwise = str
 
+-- has to be done first, because the dashes could be outside the apostrophes
 removeOuterDashes :: String -> String
 removeOuterDashes str
     | "-" `isPrefixOf` str && "-" `isSuffixOf` str = init (tail str)

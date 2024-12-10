@@ -13,5 +13,5 @@ tokenizeTextTest = TestCase $ do
                     "that", "was", "good", "in", "it", "equality", "of", "citizenship", "one", "man", "life", "thing", "well", "after", "that",
                     "but", "won't", "high-sounding", "words", "a", "duc", "or", "even", "an", "ordinary", "man", "who", "is",
                     "innocent", "she", "said", "girl", "to", "the", "maid", "the", "little", "princess", "sister-in-law"]
-    let recieved = TokenizeText.tokenize text
+    let recieved = tokenize text
     assertEqual "Tokenize text" expected recieved

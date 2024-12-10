@@ -12,7 +12,7 @@ insert x t = createNode $ ins t
         ins E = N R E x E
         ins (N color a y b)
             | x < y = balance color (ins a) y b
-            | x == y = N color a y b                -- return the tree if the element exists
+            | x == y = N color a y b                -- return the tree if the already element exists
             | x > y = balance color a y (ins b)
         createNode (N _ a y b) = N B a y b
 
