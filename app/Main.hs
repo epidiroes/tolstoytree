@@ -16,10 +16,6 @@ main = do
     -- Read the text file
     text <- readContent inputPath
 
-    -- TODO: cut away everything that is not the actual text
-    -- before: *** START OF THE PROJECT GUTENBERG EBOOK, WAR AND PEACE ***
-    -- and after: *** END OF THE PROJECT GUTENBERG EBOOK, WAR AND PEACE ***
-
     -- TODO: parallelize the tokenization
     -- Tokenize the text file
     let tokenized = tokenize text

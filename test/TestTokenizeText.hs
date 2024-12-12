@@ -1,4 +1,4 @@
-module TestTokenizeText (tokenizeTextTest) where
+module TestTokenizeText (tokenizeTextTest, splitOnPrefaceTest, splitOnAppendixTest) where
 
 import TokenizeText
 import Test.HUnit
@@ -15,3 +15,18 @@ tokenizeTextTest = TestCase $ do
                     "innocent", "she", "said", "girl", "to", "the", "maid", "the", "little", "princess", "sister-in-law"]
     let recieved = tokenize text
     assertEqual "Tokenize text" expected recieved
+
+splitOnPrefaceTest :: Test
+splitOnPrefaceTest = TestCase $ do
+    let text = "das hier soll gleich wegfallen **** string *** BLEIBT BESTEHEN UND optimalerweise ausgegeben."
+    let expected = " BLEIBT BESTEHEN UND optimalerweise ausgegeben."
+    let recieved = splitOnPreface text
+    assertEqual "Split on preface" expected recieved
+
+
+splitOnAppendixTest :: Test
+splitOnAppendixTest = TestCase $ do
+    let text = "das hier soll bleibt jetzt da **** string *** das geht weg"
+    let expected = "das hier soll bleibt jetzt da "
+    let recieved = splitOnAppendix text
+    assertEqual "Split on appendix" expected recieved

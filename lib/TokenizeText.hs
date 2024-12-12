@@ -1,4 +1,4 @@
-module TokenizeText (tokenize) where
+module TokenizeText (tokenize, splitOnPreface, splitOnAppendix) where
 
 import Data.Char (toLower, isAlpha)
 import Data.List (words, isSuffixOf, isPrefixOf)
@@ -24,8 +24,14 @@ removeOuterDashes str
     | "-" `isSuffixOf` str = init str
     | otherwise = str
 
+splitOnPreface :: String -> String
+splitOnPreface str = last (splitOn "*** START OF THE PROJECT GUTENBERG EBOOK, WAR AND PEACE ***" str)
+
+splitOnAppendix :: String -> String
+splitOnAppendix str = head (splitOn "*** END OF THE PROJECT GUTENBERG EBOOK, WAR AND PEACE ***" str)
+
 tokenize :: String -> [String]
-tokenize str = map (removeTrailingS . removeOuterApostrophes . removeOuterDashes) $ filter validToken $ concatMap splitOnDash $ words $ map toLower $ filter isValidChar str
+tokenize str = map (removeTrailingS . removeOuterApostrophes . removeOuterDashes) $ filter validToken $ concatMap splitOnDash $ words $ map toLower $ filter isValidChar $ splitOnAppendix $ splitOnPreface str
     where
         isValidChar c = isAlpha c || c == '\'' || c == '\n' || c == '-' || c == ' '
         splitOnDash word = splitOn "--" word
