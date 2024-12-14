@@ -9,8 +9,9 @@ data Color = R | B deriving Show
 data Tree a = E | N Color (Tree a) a (Tree a) deriving Show
 
 
-{-
+
 -- Non parallel insert
+-- cabal run tolstoytree-exe -- +RTS -s
 insert :: (Ord a) => a -> Tree a -> Tree a
 insert x t = createNode $ ins t
     where 
@@ -20,9 +21,10 @@ insert x t = createNode $ ins t
             | x == y = N color a y b                -- return the tree if the already element exists
             | x > y = balance color a y (ins b)
         createNode (N _ a y b) = N B a y b
- -}
 
+{-
 -- Parallel insert
+-- cabal run tolstoytree-exe -- +RTS -N -s
 insert :: (Ord a) => a -> Tree a -> Tree a
 insert x t = createNode $ ins t
   where
@@ -30,14 +32,15 @@ insert x t = createNode $ ins t
     ins (N color a y b)
         | x < y =
             let newLeft = ins a
-            in newLeft `par` balance color newLeft y b
+            in newLeft `par` (balance color newLeft y b `pseq` balance color newLeft y b)
         | x > y =
             let newRight = ins b
-            in newRight `par` balance color a y newRight
+            in newRight `par` (balance color a y newRight `pseq` balance color a y newRight)
         | otherwise = N color a y b -- Element already exists, return the same tree.
 
     createNode (N _ a y b) = N B a y b
-
+-}
+ 
 balance :: Color -> Tree a -> a -> Tree a -> Tree a
 balance B (N R (N R a x b) y c) z d = N R (N B a x b) y (N B c z d)
 balance B (N R a x (N R b y c)) z d = N R (N B a x b) y (N B c z d)

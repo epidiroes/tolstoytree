@@ -3,7 +3,6 @@ module TokenizeText (tokenize, splitOnPreface, splitOnAppendix) where
 import Data.Char (toLower, isAlpha)
 import Data.List (words, isSuffixOf, isPrefixOf)
 import Data.List.Split (splitOn)
--- import Control.Parallel.Strategies (parMap, rdeepseq)
 
 removeTrailingS :: String -> String
 removeTrailingS str
