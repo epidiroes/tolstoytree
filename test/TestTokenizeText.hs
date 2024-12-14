@@ -18,7 +18,7 @@ tokenizeTextTest = TestCase $ do
 
 splitOnPrefaceTest :: Test
 splitOnPrefaceTest = TestCase $ do
-    let text = "das hier soll gleich wegfallen **** string *** BLEIBT BESTEHEN UND optimalerweise ausgegeben."
+    let text = "das hier soll gleich wegfallen *** START OF THE PROJECT GUTENBERG EBOOK, WAR AND PEACE *** BLEIBT BESTEHEN UND optimalerweise ausgegeben."
     let expected = " BLEIBT BESTEHEN UND optimalerweise ausgegeben."
     let recieved = splitOnPreface text
     assertEqual "Split on preface" expected recieved
@@ -26,7 +26,7 @@ splitOnPrefaceTest = TestCase $ do
 
 splitOnAppendixTest :: Test
 splitOnAppendixTest = TestCase $ do
-    let text = "das hier soll bleibt jetzt da **** string *** das geht weg"
+    let text = "das hier soll bleibt jetzt da *** END OF THE PROJECT GUTENBERG EBOOK, WAR AND PEACE *** das geht weg"
     let expected = "das hier soll bleibt jetzt da "
     let recieved = splitOnAppendix text
     assertEqual "Split on appendix" expected recieved
