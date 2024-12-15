@@ -1,8 +1,9 @@
-module TokenizeText (tokenize, splitOnPreface, splitOnAppendix) where
+module TokenizeText (tokenize, tokenized, splitOnPreface, splitOnAppendix) where
 
 import Data.Char (toLower, isAlpha)
 import Data.List (words, isSuffixOf, isPrefixOf)
 import Data.List.Split (splitOn)
+import Control.Parallel.Strategies (parMap, rdeepseq)
 
 removeTrailingS :: String -> String
 removeTrailingS str
@@ -30,9 +31,18 @@ splitOnPreface str = last (splitOn "*** START OF THE PROJECT GUTENBERG EBOOK, WA
 splitOnAppendix :: String -> String
 splitOnAppendix str = head (splitOn "*** END OF THE PROJECT GUTENBERG EBOOK, WAR AND PEACE ***" str)
 
-tokenize :: String -> [String]
-tokenize str = map (removeTrailingS . removeOuterApostrophes . removeOuterDashes) $ filter validToken $ concatMap splitOnDash $ words $ map toLower $ filter isValidChar $ splitOnAppendix $ splitOnPreface str
+tokenized :: String -> [String]
+tokenized str = map (removeTrailingS . removeOuterApostrophes . removeOuterDashes) $ concatMap (filter validToken . splitOnDash) (words $ map toLower $ filter isValidChar $ splitOnAppendix $ splitOnPreface str)
     where
         isValidChar c = isAlpha c || c == '\'' || c == '\n' || c == '-' || c == ' '
-        splitOnDash word = splitOn "--" word
         validToken token = token /= "-" && token /= "'"
+        splitOnDash = splitOn "--"
+
+
+-- Divides text into its lines to tokenize every line parallel -> Parallelization
+tokenize :: String -> [String]
+tokenize text =
+  let line = lines text
+      -- Hier alle Zeilen tokenisieren und bereinigen:
+      tokenizedLines = parMap rdeepseq tokenized line
+  in concatMap (filter (not . null)) tokenizedLines

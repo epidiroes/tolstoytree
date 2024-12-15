@@ -16,6 +16,7 @@ tests = TestList [TestTree.testInsert,
                 TestTokenizeText.tokenizeTextTest,
                 TestTokenizeText.splitOnPrefaceTest,
                 TestTokenizeText.splitOnAppendixTest,
+                TestTokenizeText.linesTEst,
                 TestWriteFile.writeToFileTest]
 
 

@@ -1,7 +1,8 @@
-module TestTokenizeText (tokenizeTextTest, splitOnPrefaceTest, splitOnAppendixTest) where
+module TestTokenizeText (tokenizeTextTest, splitOnPrefaceTest, splitOnAppendixTest, linesTEst) where
 
 import TokenizeText
 import Test.HUnit
+import Test.HUnit (Test(TestCase))
 
 tokenizeTextTest :: Test
 tokenizeTextTest = TestCase $ do
@@ -30,3 +31,10 @@ splitOnAppendixTest = TestCase $ do
     let expected = "das hier soll bleibt jetzt da "
     let recieved = splitOnAppendix text
     assertEqual "Split on appendix" expected recieved
+
+linesTEst :: Test
+linesTEst = TestCase $ do
+    let text = "jaba dabay d oo \n test im selben element"
+    let expected = ["jaba dabay d oo ", " test im selben element"]
+    let receieved = lines text
+    assertEqual "Lines Test" expected receieved

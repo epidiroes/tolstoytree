@@ -1,14 +1,12 @@
 module Tree (Tree(..), insert, createTree, traverseTree) where
 
-import Control.Parallel (par, pseq)
+-- import Control.Parallel (par, pseq)
 
 -- red or black
 data Color = R | B deriving Show
 
 -- E for empty and N for node
 data Tree a = E | N Color (Tree a) a (Tree a) deriving Show
-
-
 
 -- Non parallel insert
 -- cabal run tolstoytree-exe -- +RTS -s
