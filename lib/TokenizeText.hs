@@ -38,11 +38,8 @@ tokenized str = map (removeTrailingS . removeOuterApostrophes . removeOuterDashe
         validToken token = token /= "-" && token /= "'"
         splitOnDash = splitOn "--"
 
-
--- Divides text into its lines to tokenize every line parallel -> Parallelization
 tokenize :: String -> [String]
 tokenize text =
   let line = lines text
-      -- Hier alle Zeilen tokenisieren und bereinigen:
       tokenizedLines = parMap rdeepseq tokenized line
   in concatMap (filter (not . null)) tokenizedLines
