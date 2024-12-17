@@ -19,9 +19,13 @@ main = do
 
     -- Insert each unique word into the red-black tree
     let tree = createTree tokenized
-
+    --let tree = createTreeParallel tokenized
+    
     -- Traverse tree to get the sorted list of words
     let list = traverseTree tree
+
+    -- The parallalized version, is just as fast tho
+    --let list = traverseTreeParallel tree
 
     -- Write the sorted list to "output.txt"
     writeToFile outputPath list

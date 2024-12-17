@@ -1,12 +1,24 @@
-module Tree (Tree(..), insert, createTree, traverseTree) where
+--{-# LANGUAGE FlexibleInstances #-} -- for createTreeParallel to work in theory
 
--- import Control.Parallel (par, pseq)
+module Tree (Tree(..), insert, createTree, traverseTree) where
+--module Tree (Tree(..), insert, createTree, traverseTree, traverseTreeParallel) where
+--module Tree (Tree(..), insert, createTree, createTreeParallel, traverseTree) where
+--import Control.Parallel.Strategies (parMap, rdeepseq, parList, using, rpar, rseq)
+--import Control.DeepSeq (NFData(..))
+--import Control.Parallel (par, pseq)
 
 -- red or black
 data Color = R | B deriving Show
 
 -- E for empty and N for node
 data Tree a = E | N Color (Tree a) a (Tree a) deriving Show
+
+{-
+-- for createTreeParallel to work in thoery
+instance NFData (Tree String) where
+    rnf E = ()
+    rnf (N _ left val right) = rnf left `seq` rnf val `seq` rnf right
+-}
 
 -- Non parallel insert
 -- cabal run tolstoytree-exe -- +RTS -s
@@ -49,6 +61,38 @@ balance color a x b = N color a x b
 createTree :: [String] -> Tree String
 createTree = foldr insert E
 
+-- Non parallel traverse
 traverseTree :: Tree a -> [a]
 traverseTree E = []
 traverseTree (N _ a x b) = traverseTree a ++ [x] ++ traverseTree b
+
+{-
+-- Funltioniert, aber ist nicht merkbar schneller oder langsamer
+-- Parallel traverse
+traverseTreeParallel :: Tree a -> [a]
+traverseTreeParallel E = []
+traverseTreeParallel (N _ a x b) =
+  left `par` (right `pseq` (left ++ [x] ++ right))
+  where
+    left = traverseTreeParallel a
+    right = traverseTreeParallel b
+-}
+
+{-
+-- TERMINIERT NICHT aaahhh
+-- Kombinieren von zwei Bäumen
+mergeTrees :: Tree String -> Tree String -> Tree String
+mergeTrees t1 t2 = foldr insert t1 (traverseTree t2)
+
+-- Parallele Version von createTree
+createTreeParallel :: [String] -> Tree String
+createTreeParallel str = foldr mergeTrees E partialTrees
+  where
+    chunkedString = chunks 4 str
+    partialTrees = parMap rdeepseq createTree chunkedString
+
+-- Zerlegen einer Liste in gleich große Teile
+chunks :: Int -> [a] -> [[a]]
+chunks _ [] = []
+chunks n xs = take n xs : chunks n (drop n xs)
+-}
